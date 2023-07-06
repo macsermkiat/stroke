@@ -3,6 +3,7 @@ Gunicorn
 interpret-core==0.2.4
 interpret==0.2.4
 matplotlib
+python-dotenv
 scipy
 scikit-learn==1.0.1
 tensorflow==2.11
