@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This network was created in GeNIe Academic, which can be used for academic teaching and research purposes only -->
+<smile version="1.0" id="combine_for_ML_baseline_train_discretized" numsamples="10000" discsamples="10000">
+	<nodes>
+		<cpt id="isStroke">
+			<state id="NO" />
+			<state id="YES" />
+			<probabilities>0.9649083813830628 0.03509161861693715</probabilities>
+		</cpt>
+		<cpt id="antiPL">
+			<state id="NO" />
+			<state id="YES" />
+			<parents>isStroke</parents>
+			<probabilities>0.792716689774927 0.207283310225073 0.7018270401948843 0.2981729598051157</probabilities>
+		</cpt>
+		<cpt id="antiHT">
+			<state id="NO" />
+			<state id="YES" />
+			<parents>antiPL isStroke</parents>
+			<probabilities>0.5551898521974798 0.4448101478025202 0.7688302672683096 0.2311697327316904 0.1351241612172501 0.86487583878275 0.1147875816993464 0.8852124183006537</probabilities>
+		</cpt>
+		<cpt id="HT">
+			<state id="NO" />
+			<state id="YES" />
+			<parents>antiHT isStroke</parents>
+			<probabilities>0.5070166639855408 0.4929833360144592 0.126724686902993 0.873275313097007 4.16413348546301e-06 0.9999958358665145 0.0001428571428571429 0.9998571428571429</probabilities>
+		</cpt>
+		<cpt id="age">
+			<state id="below_55" />
+			<state id="between_55_65" />
+			<state id="between_65_75" />
+			<state id="over_75" />
+			<parents>HT isStroke</parents>
+			<probabilities>0.5514557670772676 0.2958939902948861 0.1133072041806644 0.03934303844718178 0.4003350083752094 0.2763819095477387 0.1959798994974875 0.1273031825795645 0.3174671398451521 0.3038351851959412 0.2312843775592586 0.147413297399648 0.2005779587547616 0.2620517535794036 0.2895047944305792 0.2478654932352555</probabilities>
+		</cpt>
+		<cpt id="antiCoag">
+			<state id="NO" />
+			<state id="YES" />
+			<parents>antiHT isStroke</parents>
+			<probabilities>0.99257170434437 0.00742829565562989 0.9927828486520909 0.007217151347909149 0.935621960157239 0.06437803984276101 0.8596741926264647 0.1403258073735353</probabilities>
+		</cpt>
+		<cpt id="AF">
+			<state id="NO" />
+			<state id="YES" />
+			<parents>antiCoag isStroke</parents>
+			<probabilities>0.9620685528048095 0.03793144719519044 0.7731945348080677 0.2268054651919323 0.2939518496770405 0.7060481503229595 0.16 0.84</probabilities>
+		</cpt>
+		<cpt id="Statin">
+			<state id="NO" />
+			<state id="YES" />
+			<parents>antiHT isStroke</parents>
+			<probabilities>0.7303859874901824 0.2696140125098176 0.9257057949479941 0.07429420505200594 0.3412119395029649 0.6587880604970351 0.2812232066304658 0.7187767933695342</probabilities>
+		</cpt>
+		<cpt id="DLP">
+			<state id="NO" />
+			<state id="YES" />
+			<parents>Statin isStroke</parents>
+			<probabilities>0.327112690956794 0.6728873090432059 0.2617399438727783 0.7382600561272217 4.647056089967006e-06 0.9999953529439101 0.0001744591765526867 0.9998255408234472</probabilities>
+		</cpt>
+		<cpt id="TG">
+			<state id="below_150" />
+			<state id="between_150_200" />
+			<state id="between_200_250" />
+			<state id="over_250" />
+			<parents>DLP isStroke</parents>
+			<probabilities>0.3020167654135728 6.46813795244625e-06 6.46813795244625e-06 0.6979702983105224 0.5146533238027162 0.08363116511794139 0.02716225875625447 0.3745532523230879 0.6126435737230023 0.1492044318783104 0.06645679560019027 0.171695198798497 0.5789164586697988 0.1460872118631625 0.06460138012039347 0.2103949493466451</probabilities>
+		</cpt>
+		<cpt id="PG">
+			<state id="below_100" />
+			<state id="between_100_126" />
+			<state id="over_200" />
+			<parents>TG isStroke</parents>
+			<probabilities>0.5629859538551679 0.2851351565345453 0.1518788896102868 0.383873043105297 0.3240403173922368 0.2920866395024662 0.4435449204757128 0.3391245164063619 0.2173305631179252 0.3075539568345324 0.314748201438849 0.3776978417266187 0.4134630850892714 0.332153771915715 0.2543831429950137 0.301255230125523 0.3075313807531381 0.3912133891213389 0.1736518840628754 0.1464442226019864 0.6799038933351381 0.1277465508431272 0.1476750127746551 0.7245784363822177</probabilities>
+		</cpt>
+		<cpt id="DM">
+			<state id="NO" />
+			<state id="YES" />
+			<parents>PG isStroke</parents>
+			<probabilities>0.823844675902518 0.1761553240974821 0.7755344418052256 0.2244655581947743 0.5735617190718111 0.4264382809281889 0.5785807575097953 0.4214192424902046 0.4426853269188716 0.5573146730811284 0.4041925007381164 0.5958074992618837</probabilities>
+		</cpt>
+		<cpt id="HDL">
+			<state id="below_40" />
+			<state id="between_40_50" />
+			<state id="between_50_60" />
+			<state id="over_60" />
+			<parents>TG isStroke</parents>
+			<probabilities>0.1253068140429777 0.2568845112353323 0.2467735039351375 0.3710351707865525 0.2485524340553292 0.2933733647866181 0.2005146901136607 0.257559511044392 0.2583822897263218 0.3609041409944118 0.1821894254191145 0.1985241438601519 0.3839928057553957 0.3219424460431655 0.1285971223021583 0.1654676258992806 0.3407592086215216 0.3614283416438797 0.1314942898504102 0.1663181598841885 0.4728033472803347 0.3096234309623431 0.0899581589958159 0.1276150627615063 0.1098458570920966 0.07404274039356355 0.02055802778294783 0.795553374731392 0.1803781297904957 0.08891159938681656 0.01992846193152785 0.71078180889116</probabilities>
+		</cpt>
+		<cpt id="isMale">
+			<state id="Female" />
+			<state id="Male" />
+			<parents>HDL isStroke</parents>
+			<probabilities>0.410240464344942 0.5897595356550581 0.3551963048498845 0.6448036951501155 0.5650820214442779 0.434917978555722 0.44775390625 0.55224609375 0.7172595453034294 0.2827404546965706 0.5896551724137931 0.4103448275862069 0.6726443259860674 0.3273556740139325 0.5248501938667607 0.4751498061332393</probabilities>
+		</cpt>
+		<cpt id="SBP">
+			<state id="below_120" />
+			<state id="between_120_130" />
+			<state id="between_130_140" />
+			<state id="over_140" />
+			<parents>HT isStroke</parents>
+			<probabilities>0.4003359462486002 0.2023329600597238 0.1159201194475551 0.2814109742441209 0.1742043551088777 0.1122278056951424 0.05527638190954774 0.6582914572864321 0.1755542519268858 0.1529601728534173 0.1470357613739988 0.5244498138456981 0.08721923026402206 0.07106265598318665 0.0771049520556942 0.764613161697097</probabilities>
+		</cpt>
+		<cpt id="BMIcalc">
+			<state id="below_23" />
+			<state id="between_23_24_5" />
+			<state id="between_24_5_27" />
+			<state id="over_27" />
+			<parents>SBP isStroke</parents>
+			<probabilities>0.3835316884373489 0.1407063376874698 0.1793323657474601 0.2964296081277213 0.2942708333333333 0.1067708333333333 0.1809895833333333 0.41796875 0.2607596298687325 0.1385840327092748 0.2117764148913278 0.3888799225306649 0.2598684210526316 0.1167763157894737 0.1644736842105263 0.4588815789473684 0.2290807587388188 0.1313519000190319 0.2109687242276216 0.4285986170145277 0.2112903225806452 0.1048387096774194 0.1903225806451613 0.4935483870967742 0.1586759290893216 0.08773678016930493 0.1459211175644384 0.6076661731769351 0.05970389443192791 0.02961055680720953 0.05326681686514323 0.8574187318957194</probabilities>
+		</cpt>
+		<cpt id="antiDLP">
+			<state id="NO" />
+			<state id="YES" />
+			<parents>DLP isStroke</parents>
+			<probabilities>0.9999870637240951 1.29362759048925e-05 0.9996428571428572 0.0003571428571428571 0.8236976146318259 0.1763023853681741 0.8863602995154896 0.1136397004845103</probabilities>
+		</cpt>
+		<cpt id="antiDM">
+			<state id="NO" />
+			<state id="YES" />
+			<parents>DM isStroke</parents>
+			<probabilities>0.9999965577777014 3.442222298716051e-06 0.9998926577930443 0.000107342206955775 0.37450773339959 0.62549226660041 0.6045595271601464 0.3954404728398536</probabilities>
+		</cpt>
+		<cpt id="Cr">
+			<state id="below_1_2" />
+			<state id="between_1_2_1_5" />
+			<state id="over_1_5" />
+			<parents>TG isStroke</parents>
+			<probabilities>0.8755562241682371 0.03658015170469842 0.08786362412706457 0.7703195367788978 0.06047608835513618 0.1692043748659661 0.8582891531738071 0.04674738501217939 0.09496346181401347 0.7733812949640289 0.05755395683453238 0.1690647482014389 0.8471127553482387 0.04833520990831591 0.1045520347434454 0.7092050209205021 0.07322175732217573 0.2175732217573222 0.5369283091656655 0.04741036530684759 0.4156613255274868 0.4977005620848238 0.04138988247317323 0.4609095554420031</probabilities>
+		</cpt>
+		<cpt id="LDL">
+			<state id="below100" />
+			<state id="between_100_130" />
+			<state id="between_130_160" />
+			<state id="over_160" />
+			<parents>TG isStroke</parents>
+			<probabilities>0.2518883909483919 0.2756259006476746 0.2265119004259767 0.2459738079779569 0.3823718636071199 0.2684966759596826 0.159982843662878 0.1891486167703195 0.192040406935091 0.2632182261068921 0.2384295744375985 0.3063117925204184 0.2410071942446043 0.2616906474820144 0.2032374100719425 0.2940647482014389 0.1833681840115812 0.2552678140582275 0.2468232266366415 0.31454077529355 0.2238493723849372 0.2740585774058577 0.2133891213389121 0.2887029288702929 0.07431346339317439 0.07392429908123381 0.05835772660361076 0.7934045109219809 0.1108840061318345 0.09453244762391416 0.0797138477261114 0.7148696985181401</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 4.0.2423.0 ACADEMIC" name="combine_for_ML_baseline_train_discretized">
+			<node id="age">
+				<name>Age</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>542 193 614 241</position>
+			</node>
+			<node id="AF">
+				<name>Atrial fibrillation</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>528 248 600 296</position>
+			</node>
+			<node id="DLP">
+				<name>Dyslipidemia</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>488 297 560 345</position>
+			</node>
+			<node id="HT">
+				<name>Hypertension</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>426 335 498 383</position>
+			</node>
+			<node id="DM">
+				<name>DM</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>349 357 421 405</position>
+			</node>
+			<node id="isMale">
+				<name>Male</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>266 362 338 410</position>
+			</node>
+			<node id="SBP">
+				<name>Systolic blood pressure</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>185 348 257 396</position>
+			</node>
+			<node id="BMIcalc">
+				<name>BMI</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>115 318 187 366</position>
+			</node>
+			<node id="Statin">
+				<name>Statin</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>63 273 135 321</position>
+			</node>
+			<node id="antiCoag">
+				<name>Anti-coagulant</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>36 220 108 268</position>
+			</node>
+			<node id="antiDLP">
+				<name>non-StatinLipid lowering drug</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>36 166 108 214</position>
+			</node>
+			<node id="antiDM">
+				<name>Hypoglycemic drug</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>63 113 135 161</position>
+			</node>
+			<node id="antiHT">
+				<name>Antihypertensive drug</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>115 68 187 116</position>
+			</node>
+			<node id="antiPL">
+				<name>Antiplatelets</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>185 38 257 86</position>
+			</node>
+			<node id="Cr">
+				<name>Serum Creatinine</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>266 24 338 72</position>
+				<defcomment row="0" col="0">Below 1.2</defcomment>
+				<defcomment row="1" col="0">Between 1.2 to 1.5</defcomment>
+				<defcomment row="2" col="0">Over 1.5</defcomment>
+			</node>
+			<node id="HDL">
+				<name>HDL</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>349 29 421 77</position>
+				<defcomment row="0" col="0">Below 40</defcomment>
+				<defcomment row="1" col="0">Between 40-50</defcomment>
+				<defcomment row="2" col="0">Between 50-60</defcomment>
+				<defcomment row="3" col="0">More than 60</defcomment>
+			</node>
+			<node id="LDL">
+				<name>LDL</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>425 50 497 98</position>
+				<defcomment row="0" col="0">Below 100</defcomment>
+				<defcomment row="1" col="0">100 - 130</defcomment>
+				<defcomment row="2" col="0">130-160</defcomment>
+				<defcomment row="3" col="0">Over 160</defcomment>
+			</node>
+			<node id="PG">
+				<name>Plasma Glucose</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>488 89 560 137</position>
+				<defcomment row="0" col="0">Below 100</defcomment>
+				<defcomment row="1" col="0">100 - 126</defcomment>
+				<defcomment row="2" col="0">Over 200</defcomment>
+			</node>
+			<node id="TG">
+				<name>Triglyceride</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>528 138 600 186</position>
+			</node>
+			<node id="isStroke">
+				<name>Stroke</name>
+				<interior color="ffff80" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>287 193 359 241</position>
+			</node>
+			<textbox>
+				<caption>Input file: combine_for_ML_baseline_train_discretized.csv\nData rows: 233959\nElapsed time: 0.859s\n\nLearning algorithm: Tree Augmented Naive Bayes\nAlgorithm parameters:\nClass variable: isStroke\nSeed: 0\nMax search time: 0\n\nEM Log Likelihood: -3.11819e+06</caption>
+				<font color="000000" name="Arial" size="8" />
+				<position>10 430 289 584</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

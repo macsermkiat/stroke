@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/raphael@2.3.0/raphael.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/justgage@1.2.9/justgage.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <title>ITE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #f0f0f0;
+            line-height: 1.6;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 30px;
+            color: #444;
+        }
+
+        form {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056B3;
+        }
+        .variable {
+            flex: 1 0 calc(33% - 20px);
+            margin: 10px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .variable label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #444;
+        }
+        .variabel input {
+          display: block; 
+        }
+        .variable input[type="radio"] {
+            margin-left: 10px;
+        }
+        
+
+        input[type="submit"] {
+            display: block;
+            margin: 30px auto;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056B3;
+        }
+
+        h2 {
+            text-align: center;
+            padding: 10px;
+            color: #444;
+        }
+
+        p {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 0 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ITE Input Variables</h1>
+    {% if Upperaf %}
+    <div class="container">
+        <p>90% ITE confidence of AntiPlt between: {{Loweraf}} and {{Upperaf}}</p>
+        <p>Negative numbers mean reduce risk of stroke</p>
+        <p>This represents counterfactual prediction. For instance, if you're taking 
+            antiPlt, the displayed figure indicates a hypothetical scenario had you not 
+            taken antiPlt, and vice versa.'</p>
+    </div>
+    {% endif %}
+    <form action="/ite" method="post">
+        <div class="variable">
+
+            
+            <label for="DLP">DLP<sup>*</sup></label>
+            <input type="radio" name="DLP" id="dlp_yes" value=1 required>YES
+            <input type="radio" name="DLP" id="dlp_no" value=0 checked="checked" required>NO
+            <label for="HT">HT<sup>*</sup></label>
+            <input type="radio" name="HT" id="ht_yes" value=1 required>YES
+            <input type="radio" name="HT" id="ht_no" value=0 checked="checked" required>NO
+            <label for="AF">AF<sup>*</sup></label>
+            <input type="radio" name="AF" id="af_yes" value=1 required>YES
+            <input type="radio" name="AF" id="af_no" value=0 checked="checked" required>NO
+            <label for="age">Age<sup>*</sup></label>
+            <input type="number" name="age" id="age" min="18" max="100" value=20 required>
+            <label for="DM">DM<sup>*</sup></label>
+            <input type="radio" name="DM" id="dm_yes" value=1 required>YES
+            <input type="radio" name="DM" id="dm_no" value=0 checked="checked" required>NO           
+            <label for="BMIcalc">BMI</label>
+            <input type="number" name="BMIcalc" id="bmi" min="10" max="60" value=25 required>
+                                                     
+            <label for="GFR">GFR less than 60 ml/min</label>
+            <input type="radio" name="GFR" id="GFR_low" value=1 required>YES
+            <input type="radio" name="GFR" id="GFR_good" value=0 checked="checked" required>NO
+            <label for="antiPL">AntiPlt</label>
+            <input type="radio" name="antiPL" id="antiplt_yes" value=1 required>YES
+            <input type="radio" name="antiPL" id="antiplt_no" value=0 checked="checked" required>NO
+            
+            
+
+
+        </div>
+        <!-- Add more input boxes for the other variables (SBP, BMIcalc, Cr, HDL, LDL, PG, TG) -->
+
+        <div class="button-container">
+            <input type="submit" value="Calculate" class="btn">
+            <a href="/" class="btn">Back</a>
+        </div>
+    </form>
+    
+    
+</body>
+</html>

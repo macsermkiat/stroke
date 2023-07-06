@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bayesian Network Analysis</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mb-4">Bayesian Network Analysis</h1>
+
+    <form method="post" class="row g-3">
+      {% for node_name in nodes %}
+        <div class="col-md-4">
+          <label for="{{ node_name }}" class="form-label">{{ node_name }}</label>
+          <select class="form-select" id="{{ node_name }}" name="{{ node_name }}">
+            {% for state in evidence_states[node_name] %}
+              <option value="{{ evidence_states[node].index(state) }}">{{ state }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      {% endfor %}
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+
+    {% if result1 and result2 %}
+      <h2 class="mt-5">Results</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Model 1</h3>
+          <ul class="list-group">
+            {% for state, belief in result1.items() %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ state }}
+                <span class="badge bg-primary rounded-pill">{{ "%.2f"|format(belief * 100) }}%</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h3>Model 2</h3>
+          <ul class="list-group">
+            {% for state, belief in result2.items() %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ state }}
+                <span class="badge bg-primary rounded-pill">{{ "%.2f"|format(belief * 100) }}%</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

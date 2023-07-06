@@ -1,0 +1,21 @@
+Node,Parents,Children
+BMIcalc,[],"['DM', 'HT', 'DLP']"
+Age,[],"['DM', 'AF', 'Cr', 'DLP', 'AntiPL', 'Stroke_2']"
+DM,"['BMIcalc', 'Age']","['HT', 'AntiDM', 'AntiPL', 'PG']"
+isMale,[],"['SBP', 'HDL']"
+HT,"['DM', 'BMIcalc']","['AF', 'AntiHT', 'SBP', 'AntiPL', 'Stroke_2']"
+AF,"['HT', 'Age']","['AntiCoag', 'Stroke_2']"
+AntiCoag,['AF'],['Stroke_2']
+Cr,['Age'],[]
+AntiHT,['HT'],"['SBP', 'Stroke_2']"
+DLP,"['BMIcalc', 'Age']","['Statin', 'AntiDLP', 'LDL', 'HDL', 'TG']"
+SBP,"['HT', 'AntiHT', 'isMale']",['Stroke_2']
+Statin,['DLP'],"['LDL', 'HDL', 'TG', 'Stroke_2']"
+AntiDM,['DM'],['PG']
+AntiDLP,['DLP'],"['LDL', 'HDL', 'TG']"
+LDL,"['DLP', 'Statin', 'AntiDLP']",['HDL']
+HDL,"['DLP', 'Statin', 'AntiDLP', 'LDL', 'isMale']",[]
+TG,"['DLP', 'Statin', 'AntiDLP']",[]
+AntiPL,"['Age', 'DM', 'HT']",['Stroke_2']
+PG,"['DM', 'AntiDM']",[]
+Stroke_2,"['AntiPL', 'SBP', 'AntiCoag', 'AF', 'Age', 'HT', 'AntiHT', 'Statin']",[]

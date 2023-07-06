@@ -1,0 +1,12 @@
+Flask
+Gunicorn
+interpret-core==0.2.4
+interpret==0.2.4
+matplotlib
+scipy
+scikit-learn==1.0.1
+tensorflow==2.11
+xgboost
+
+--extra-index-url https://support.bayesfusion.com/pysmile-A/ 
+pysmile
