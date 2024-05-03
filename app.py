@@ -15,18 +15,23 @@ _ = load_dotenv(find_dotenv())
 
 KEY = os.environ.get('KEY')
 key_list = [HexInt(int(item.strip(), 16)) for item in KEY.strip('[]').split(',')]
-pysmile.License(((
-	b"SMILE LICENSE e5ca1ad4 bbb82a84 a6e90038 "
+pysmile.License((
+	b"SMILE LICENSE b60e573d e7673bb6 b7db4dd1 "
 	b"THIS IS AN ACADEMIC LICENSE AND CAN BE USED "
 	b"SOLELY FOR ACADEMIC RESEARCH AND TEACHING, "
 	b"AS DEFINED IN THE BAYESFUSION ACADEMIC "
 	b"SOFTWARE LICENSING AGREEMENT. "
-	b"Serial #: dafatg2jml3x61km3b5oej22n "
-	b"Issued for: SERMKIAT LOLAK (sermkiat.lol@student.mahidol.edu) "
-	b"Academic institution: Faculty of Medicine, Ramathibodi hospital, Mahidol university "
-	b"Valid until: 2023-10-27 "
+	b"Serial #: 7b2svfl95atzwy87ov1ckr0u4 "
+	b"Issued for: Sermkiat Lolak (sermkiat.lol@mahidol.edu) "
+	b"Academic institution: Mahidol university "
+	b"Valid until: 2024-11-04 "
 	b"Issued by BayesFusion activation server"
-	)),key_list)
+	),[
+	0x59,0xfb,0xa9,0x21,0xa8,0x35,0x51,0x18,0x6e,0x4a,0x34,0x77,0x3a,0xb4,0xf0,0xd0,
+	0xe7,0x81,0x46,0x70,0xba,0xc2,0xb7,0x4e,0x94,0x66,0x97,0xd5,0xc8,0x8c,0x11,0xa0,
+	0x98,0xd3,0x71,0x75,0x43,0xf3,0xc1,0x99,0xfa,0x5b,0x5f,0x5f,0x1e,0x41,0x64,0x62,
+	0xe0,0xb4,0x41,0x0a,0x59,0xb2,0x65,0x89,0x58,0xf1,0x36,0x35,0x9f,0x95,0x29,0x49])
+
 
 
 
