@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/raphael@2.3.0/raphael.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/justgage@1.2.9/justgage.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/templatemo-chain-app-dev.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/animated.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/owl.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    
+
+    <title>Bayesian Network Probability Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 45px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+            
+        }
+
+        .btn:hover {
+            background-color: #73adec;
+            color: #fff;
+        }
+        .variable {
+            flex: 1 0 calc(33% - 20px);
+            margin: 10px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #eeebeb;
+        }
+
+        .variable label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .variable input[type="radio"] {
+            margin-left: 10px;
+        }
+
+        input[type="submit"] {
+            display: block;
+            margin: 30px auto;
+            padding: 10px 30px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #73adec;
+            color: #fff;
+        }
+
+        .radio-wrapper {
+             margin-bottom: 20px;
+        }
+
+        .radio-button {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .radio-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .radio-button input[type="radio"] {
+            display: none;
+        }
+
+        .radio-checkmark {
+            display: inline-block;
+            position: relative;
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            border: 2px solid #007BFF;
+            border-radius: 50%;
+        }
+
+        .radio-checkmark:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #007BFF;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .radio-button input[type="radio"]:checked ~ .radio-checkmark:before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .radio-label {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .form-group {
+            margin-right: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <br><br><br>
+
+    
+
+    <div id="services" class="services section">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+              <div class="section-heading  wow fadeInDown" data-wow-duration="3.2s" data-wow-delay="0.5s">
+                <h1><em>Logistic Regression Model</em></h1>
+                <div style="display: flex; justify-content: center;">
+                <hr style="width: 15%;">
+                </div>
+                <br>
+                <br>
+                <h4>Input <em>Variables</em></h4>
+                <!--<p>texttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttext</p>-->
+              </div>
+            </div>
+          </div>
+        </div>  
+    </div>
+ <!------------------------------------------------------------------------------------------------------------------------------------------------>
+
+    <!--<h1>LogReg Input Variables</h1>-->
+    {% if result %}
+    <div class="section-heading  wow fadeInLeft" data-wow-duration="1.4s" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-6 align-self-center">
+            <div class="section-heading">
+              <h4>Result</h4>
+              
+              <p style="font-size: 20px;"><strong><em>Probability of having Stroke (Logistic regression): {{result|round(2)}}</em>></strong></p>
+              <p style="font-size: 20px;"><strong><em>Explainable Boosting Machine (EBM) predict risk of Stroke is {{ebm|round(2)}}</em></strong></p>
+              <p style="font-size: 20px;"><strong><em>XGBoost predict risk of Stroke is {{xgb|round(2)}}</em></strong></p>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+
+
+
+    <!--<div class="container">
+        <p>Probability of having Stroke (Logistic regression): {{result|round(2)}}</p>
+        <p>Explainable Boosting Machine (EBM) predict risk of Stroke is {{ebm|round(2)}}</p>
+        <p>XGBoost predict risk of Stroke is {{xgb|round(2)}}</p>
+    </div>-->
+    {% endif %}
+    <div class="section-heading  wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.1s">
+    <form action="/logreg" method="post">
+        <div class="col-lg-12">
+        <div class="variable">
+        <div class="form-row">
+            
+            <div class="form-group" >
+            <label for="age">Age<sup>*</sup></label>
+            <input type="number" name="age" id="age" min="18" max="100" value=20 required>
+            </div>
+            <!--------------------------------------------------------------------------------------------->
+            <div class="form-group" >
+            <label for="AF">AF<sup>*</sup></label>
+                <div class="radio-wrapper">
+                    <label class="radio-button">
+                        <input type="radio" name="AF" id="af_yes" value=1 required>
+                        <span class="radio-checkmark"></span>
+                        <span class="radio-label">YES</span>
+                    </label>
+                </div>
+                <div class="radio-wrapper">
+                    <label class="radio-button">
+                        <input type="radio" name="AF" id="af_no" value=0 checked="checked" required>
+                        <span class="radio-checkmark"></span>
+                        <span class="radio-label">NO</span>
+                    </label>
+                </div>
+            </div>
+            <!--------------------------------------------------------------------------------------------->
+            <div class="form-group" >
+            <label for="DLP">DLP<sup>*</sup></label>
+            <div class="radio-wrapper">
+                <label class="radio-button">
+                    <input type="radio" name="DLP" id="dlp_yes" value=1 required>
+                    <span class="radio-checkmark"></span>
+                    <span class="radio-label">YES</span>
+                </label>
+            </div>
+            <div class="radio-wrapper">
+                <label class="radio-button">
+                    <input type="radio" name="DLP" id="dlp_no" value=0 checked="checked" required>
+                    <span class="radio-checkmark"></span>
+                    <span class="radio-label">NO</span>
+                </label>
+            </div>
+            </div>
+            <!--------------------------------------------------------------------------------------------->
+            <div class="form-group" >
+            <label for="HT">HT<sup>*</sup></label>
+            <div class="radio-wrapper">
+                <label class="radio-button">
+                    <input type="radio" name="HT" id="ht_yes" value=1 required>
+                    <span class="radio-checkmark"></span>
+                    <span class="radio-label">YES</span>
+                </label>
+            </div>
+            <div class="radio-wrapper">
+                <label class="radio-button">
+                    <input type="radio" name="HT" id="ht_no" value=0 checked="checked" required>
+                    <span class="radio-checkmark"></span>
+                    <span class="radio-label">NO</span>
+                </label>
+            </div>
+            </div>
+            <!--------------------------------------------------------------------------------------------->
+            <div class="form-group" >
+            <label for="DM">DM<sup>*</sup></label>
+            <div class="radio-wrapper">
+                <label class="radio-button">
+                    <input type="radio" name="DM" id="dm_yes" value=1 required>
+                    <span class="radio-checkmark"></span>
+                    <span class="radio-label">YES</span>
+                </label>
+            </div>
+            <div class="radio-wrapper">
+                <label class="radio-button">
+                    <input type="radio" name="DM" id="dm_no" value=0 checked="checked" required>
+                    <span class="radio-checkmark"></span>
+                    <span class="radio-label">NO</span>
+                </label>
+            </div>
+            </div>
+            <!--------------------------------------------------------------------------------------------->
+            <div class="form-group" >
+            <label for="isMale">Male sex</label>
+            <div class="radio-wrapper">
+                <label class="radio-button">
+                    <input type="radio" name="isMale" id="isMale_yes" value=1 required>
+                    <span class="radio-checkmark"></span>
+                    <span class="radio-label">YES</span>
+                </label>
+            </div>
+            <div class="radio-wrapper">
+                <label class="radio-button">
+                    <input type="radio" name="isMale" id="isMale_no" value=0 checked="checked" required>
+                    <span class="radio-checkmark"></span>
+                    <span class="radio-label">NO</span>
+                </label>
+            </div>
+            </div>
+            <!--------------------------------------------------------------------------------------------->
+            <div class="form-group" >
+            <label for="SBP">SBP</label>
+            <input type="number" name="SBP" id="sbp" min="60" max="250" value=120 required>
+            </div>
+            <!--------------------------------------------------------------------------------------------->
+            <div class="form-group" >
+            <label for="BMIcalc">BMI</label>
+            <input type="number" name="BMIcalc" id="bmi" min="10" max="60" value=25 required>
+            </div>
+            <!--------------------------------------------------------------------------------------------->
+            <div class="form-group" >
+            <label for="Statin">Statin</label>
+            <div class="radio-wrapper">
+                <label class="radio-button">
+                    <input type="radio" name="Statin" id="statin_yes" value=1 required>
+                    <span class="radio-checkmark"></span>
+                    <span class="radio-label">YES</span>
+                </label>
+            </div>
+            <div class="radio-wrapper">
+                <label class="radio-button">
+                    <input type="radio" name="Statin" id="statin_no" value=0 checked="checked" required>
+                    <span class="radio-checkmark"></span>
+                    <span class="radio-label">NO</span>
+                </label>
+            </div>
+            </div>
+            <!--------------------------------------------------------------------------------------------->
+            <div class="form-group" >
+            <label for="antiCoag">AntiCoag</label>
+            <div class="radio-wrapper">
+                <label class="radio-button">
+                    <input type="radio" name="antiCoag" id="anticoag_yes" value=1 required>
+                    <span class="radio-checkmark"></span>
+                    <span class="radio-label">YES</span>
+                </label>
+            </div>
+            <div class="radio-wrapper" >
+                <label class="radio-button">
+                    <input type="radio" name="antiCoag" id="anticoag_no" value=0 checked="checked" required>
+                    <span class="radio-checkmark"></span>
+                    <span class="radio-label">NO</span>
+                </label>
+            </div>
+            </div>
+            <!--------------------------------------------------------------------------------------------->
+            
+            <div class="form-group" >
+            <label for="antiDlp">AntiDLP</label>
+            <div class="radio-wrapper">
+                <label class="radio-button">
+                    <input type="radio" name="antiDLP" id="antidlp_yes" value=1 required>
+                    <span class="radio-checkmark"></span>
+                    <span class="radio-label">YES</span>
+                </label>
+            </div>
+            <div class="radio-wrapper">
+                <label class="radio-button">
+                    <input type="radio" name="antiDLP" id="antidlp_no" value=0 checked="checked" required>
+                    <span class="radio-checkmark"></span>
+                    <span class="radio-label">NO</span>
+                </label>
+            </div>
+            </div>
+
+        </div>   
+        </div>
+        </div>
+        <!-- Add more input boxes for the other variables (SBP, BMIcalc, Cr, HDL, LDL, PG, TG) -->
+        <div class="col-lg-12">
+        <div class="variable">
+        <div class="form-row">
+        
+            <div class="form-group" style="margin-right: 30px;">
+                <label for="antiDM">AntiDM</label>
+                <div class="radio-wrapper">
+                    <label class="radio-button">
+                        <input type="radio" name="antiDM" id="antidm_yes" value=1 required>
+                        <span class="radio-checkmark"></span>
+                        <span class="radio-label">YES</span>
+                    </label>
+                </div>
+                <div class="radio-wrapper">
+                    <label class="radio-button">
+                        <input type="radio" name="antiDM" id="antidm_no" value=0 checked="checked" required>
+                        <span class="radio-checkmark"></span>
+                        <span class="radio-label">NO</span>
+                    </label>
+                </div>
+                </div>
+                <!--------------------------------------------------------------------------------------------->
+                <div class="form-group" style="margin-right: 30px;">
+                <label for="antiHT">AntiHT</label>
+                <div class="radio-wrapper">
+                    <label class="radio-button">
+                        <input type="radio" name="antiHT" id="antiht_yes" value=1 required>
+                        <span class="radio-checkmark"></span>
+                        <span class="radio-label">YES</span>
+                    </label>
+                </div>
+                <div class="radio-wrapper">
+                    <label class="radio-button">
+                        <input type="radio" name="antiHT" id="antiht_no" value=0 checked="checked" required>
+                        <span class="radio-checkmark"></span>
+                        <span class="radio-label">NO</span>
+                    </label>
+                </div>
+                </div>
+                <!--------------------------------------------------------------------------------------------->
+                <div class="form-group" style="margin-right: 30px;">
+                <label for="antiPL">AntiPlt</label>
+                <div class="radio-wrapper">
+                    <label class="radio-button">
+                        <input type="radio" name="antiPL" id="antiplt_yes" value=1 required>
+                        <span class="radio-checkmark"></span>
+                        <span class="radio-label">YES</span>
+                    </label>
+                </div>
+                <div class="radio-wrapper">
+                    <label class="radio-button">
+                        <input type="radio" name="antiPL" id="antiplt_no" value=0 checked="checked" required>
+                        <span class="radio-checkmark"></span>
+                        <span class="radio-label">NO</span>
+                    </label>
+                </div>
+                </div>
+                <!--------------------------------------------------------------------------------------------->
+                <div class="form-group" style="margin-right: 30px;">
+                <label for="Cr">Cr</label>
+                <input type="number" name="Cr" id="Cr" step="0.1" min="0.1" max="30"value=1.0 required>
+                </div>
+                <!--------------------------------------------------------------------------------------------->
+                <div class="form-group" style="margin-right: 30px;">
+                <label for="HDL">HDL</label>
+                <input type="number" name="HDL" id="HDL" min="20" max="200" value=55 required>
+                </div>
+                <!--------------------------------------------------------------------------------------------->
+                <div class="form-group" style="margin-right: 30px;">
+                <label for="LDL">LDL</label>
+                <input type="number" name="LDL" id="LDL" min="20" max="500" value=110 required>
+                </div>
+                <!--------------------------------------------------------------------------------------------->
+                <div class="form-group" style="margin-right: 30px;">
+                <label for="PG">PG</label>
+                <input type="number" name="PG" id="PG" min="50" max="1000" value=110 required>
+                </div>
+                <!--------------------------------------------------------------------------------------------->
+                <div class="form-group" style="margin-right: 30px;">
+                <label for="TG">TG</label>
+                <input type="number" name="TG" id="TG" min="20" max="2000" value=150 required>
+                </div>
+        
+    
+        </div>
+        </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <br>
+                    <input class="btn" type="submit" value="Calculate">
+                    <a class="btn" href="/">Back</a>
+                </div>
+            </div> 
+        </div>
+    </form>
+    </div>
+
+
+
+        
+    
+
+    
+<!------------------------------------------------------------------------------------------------------------------------------------------------>  
+<footer id="newsletter">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+          <div class="footer-widget">
+            <h4>Contact Us</h4>
+            <p>Department of Clinical Epidemiology and Biostatistics</p>
+            <p>- 3rd Floor, Research Center Building, Faculty of Medicine Ramathibodi Hospital, Mahidol University
+              270 RAMA VI Road. Rachathevi, Bangkok 10400, Thailand.</p>
+            <p>- 4th Floor, Sukho Place Building, 218/11 Sukhothai Road., Suan Chitlada, Dusit, Bangkok 10300, Thailand.</p> 
+            <p>Tel. (+66)2-201-1269 Fax. (+66)2-201-1284</p>
+            <p>Website: <a href="http://www.ceb-rama.org">http://www.ceb-rama.org</a></p>
+          </div>
+        </div>
+       
+    </div>
+  </footer>
+
+
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/js/owl-carousel.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/js/animation.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/js/imagesloaded.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/js/popup.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/js/custom.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>     
+</body>
+</html>

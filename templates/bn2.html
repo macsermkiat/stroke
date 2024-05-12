@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/raphael@2.3.0/raphael.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/justgage@1.2.9/justgage.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/templatemo-chain-app-dev.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/animated.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/owl.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    
+
+    <title>Bayesian Network Probability Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+       
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 45px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+            
+        }
+
+        .btn:hover {
+            background-color: #73adec;
+            color: #fff;
+        }
+        .variable {
+            flex: 1 0 calc(33% - 20px);
+            margin: 10px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #eeebeb;
+        }
+
+        .variable label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .variable input[type="radio"] {
+            margin-left: 10px;
+        }
+
+        input[type="submit"] {
+            display: block;
+            margin: 30px auto;
+            padding: 10px 30px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #73adec;
+            color: #fff;
+        }
+
+        .radio-wrapper {
+             margin-bottom: 20px;
+        }
+
+        .radio-button {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .radio-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .radio-button input[type="radio"] {
+            display: none;
+        }
+
+        .radio-checkmark {
+            display: inline-block;
+            position: relative;
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            border: 2px solid #007BFF;
+            border-radius: 50%;
+        }
+
+        .radio-checkmark:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #007BFF;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .radio-button input[type="radio"]:checked ~ .radio-checkmark:before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .radio-label {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+       
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <br><br><br>
+
+    
+
+    <div id="services" class="services section">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+              <div class="section-heading  wow fadeInDown" data-wow-duration="3.2s" data-wow-delay="0.5s">
+                <h1><em>BN Model</em></h1>
+                <div style="display: flex; justify-content: center;">
+                <hr style="width: 15%;">
+                </div>
+                <br>
+                <br>
+                <h4>Input <em>Variables</em></h4>
+                <!--<p>texttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttext</p>-->
+              </div>
+            </div>
+          </div>
+        </div>  
+    </div>
+ <!------------------------------------------------------------------------------------------------------------------------------------------------>   
+    {% if result %}
+    
+
+    <div class="section-heading  wow fadeInLeft" data-wow-duration="1.4s" data-wow-delay="0.1s">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 align-self-center">
+              <div class="section-heading">
+                <h4>Result</h4>
+                
+                <p style="font-size: 20px;"><strong><em>{{ result }}</em></strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <!--<h2>Result</h2>
+        <p>{{ result }}</p>-->
+        {% for node in nodes[-1:] %}
+            <div class="variable">
+                <label for="{{ node }}">{{ node }}</label>
+                {% for state in evidence_states[node] %}
+                    <div class="form-check">
+                      
+                      <div class="radio-wrapper">
+                        <label class="radio-button">
+                          <input id="option2" type="radio" name="{{ node }}" id="{{ node }}_{{ state }}" value="{{ evidence_states[node].index(state) }}">
+                          <span class="radio-checkmark"></span>
+                          <span class="radio-label">{{ state }}</span>
+                        </label>
+                      </div>
+
+                    
+                    
+                      </div>
+                      <div class="col-lg-12">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" 
+                               style="width: {{ evidence_values[node][evidence_states[node].index(state)] * 100 }}%;" 
+                               aria-valuenow="{{ evidence_values[node][evidence_states[node].index(state)] * 100 }}" 
+                               aria-valuemin="0" aria-valuemax="100" 
+                               id="{{ node }}_progress_value">
+                          </div>
+                        </div>{{ (evidence_values[node][evidence_states[node].index(state)] * 100)|round(2) }}%
+                      </div>
+                {% endfor %}
+                
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <br>
+                            <a href="/BN" class="btn">Start over</a>
+                        </div>
+                    </div> 
+                </div>          
+            </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+<!------------------------------------------------------------------------------------------------------------------------------------------------>      
+    <!--<h1>Input Variables</h1>-->
+    <div class="section-heading  wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.1s">
+    <form action="/BN" method="post">
+        {% for node in nodes %}
+            <div class="variable">
+                <label for="{{ node }}" style="display: flex; align-items: center; justify-content: center; font-size: 20px;">{{ node_fullnames[node] }}</label>
+                {% for state in evidence_states[node] %}
+                    <div class="form-check">
+                        <br>
+                        
+                        
+                        <div class="radio-wrapper">
+                            <label class="radio-button">
+                              <input id="option2" type="radio" name="{{ node }}" id="{{ node }}_{{ state }}" value="{{ evidence_states[node].index(state) }}">
+                              <span class="radio-checkmark"></span>
+                              <span class="radio-label">{{ state }}</span>
+                            </label>
+                          </div>
+
+
+                    </div>
+                      <div class="col-lg-12">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" 
+                               style="width: {{ evidence_values[node][evidence_states[node].index(state)] * 100 }}%;" 
+                               aria-valuenow="{{ evidence_values[node][evidence_states[node].index(state)] * 100 }}" 
+                               aria-valuemin="0" aria-valuemax="100" 
+                               id="{{ node }}_progress_value">
+                          </div>
+                        </div>{{ (evidence_values[node][evidence_states[node].index(state)] * 100)|round(2) }}%
+                      </div>
+                {% endfor %}           
+            </div>
+        {% endfor %}
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <br>
+                    <input class="btn" type="submit" value="Calculate">
+                    <a class="btn" href="/">Back</a>
+                </div>
+            </div> 
+        </div>
+    </form>
+    </div>
+<!------------------------------------------------------------------------------------------------------------------------------------------------>  
+    <footer id="newsletter">
+        <div class="container">
+    
+          <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+              <div class="footer-widget">
+                <h4>Contact Us</h4>
+                <p>Department of Clinical Epidemiology and Biostatistics</p>
+                <p>- 3rd Floor, Research Center Building, Faculty of Medicine Ramathibodi Hospital, Mahidol University
+                  270 RAMA VI Road. Rachathevi, Bangkok 10400, Thailand.</p>
+                <p>- 4th Floor, Sukho Place Building, 218/11 Sukhothai Road., Suan Chitlada, Dusit, Bangkok 10300, Thailand.</p> 
+                <p>Tel. (+66)2-201-1269 Fax. (+66)2-201-1284</p>
+                <p>Website: <a href="http://www.ceb-rama.org">http://www.ceb-rama.org</a></p>
+              </div>
+            </div>
+           
+        </div>
+      </footer>
+    
+    
+      <!-- Scripts -->
+      <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='assets/js/owl-carousel.js') }}"></script>
+      <script src="{{ url_for('static', filename='assets/js/animation.js') }}"></script>
+      <script src="{{ url_for('static', filename='assets/js/imagesloaded.js') }}"></script>
+      <script src="{{ url_for('static', filename='assets/js/popup.js') }}"></script>
+      <script src="{{ url_for('static', filename='assets/js/custom.js') }}"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script> 
+</body>
+</html>
