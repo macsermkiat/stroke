@@ -64,7 +64,7 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
 def home():
-    return render_template("index.html")
+    return render_template("index2.html")
 
 
 @app.route("/TAN", methods=["GET", "POST"])
@@ -106,9 +106,9 @@ def tan():
         except SMILEException as e:
             result = f"Error: {e}"
         
-        return render_template("tan.html", result=result, nodes=node_names, evidence_states=evidence_states, evidence_values=evidence_values, node_fullnames=node_fullnames)
+        return render_template("tan2.html", result=result, nodes=node_names, evidence_states=evidence_states, evidence_values=evidence_values, node_fullnames=node_fullnames)
 
-    return render_template("tan.html", nodes=node_names, evidence_states=evidence_states, evidence_values=evidence_values, node_fullnames=node_fullnames)
+    return render_template("tan2.html", nodes=node_names, evidence_states=evidence_states, evidence_values=evidence_values, node_fullnames=node_fullnames)
 
 @app.route("/BN", methods=["GET", "POST"])
                
@@ -147,9 +147,9 @@ def bn():
         except SMILEException as e:
             result = f"Error: {e}"
         
-        return render_template("bn.html", result=result, nodes=node_names, evidence_states=evidence_states, evidence_values=evidence_values, node_fullnames=node_fullnames)
+        return render_template("bn2.html", result=result, nodes=node_names, evidence_states=evidence_states, evidence_values=evidence_values, node_fullnames=node_fullnames)
 
-    return render_template("bn.html", nodes=node_names, evidence_states=evidence_states, evidence_values=evidence_values, node_fullnames=node_fullnames)
+    return render_template("bn2.html", nodes=node_names, evidence_states=evidence_states, evidence_values=evidence_values, node_fullnames=node_fullnames)
 
 @app.route("/logreg", methods=["GET", "POST"])
 
@@ -170,9 +170,9 @@ def logreg():
         result, ebm, xgb = logreg_function(input_data)
         
 
-        return render_template("logreg.html", result=result, ebm=ebm, xgb=xgb, input_data=input_data)
+        return render_template("logreg2.html", result=result, ebm=ebm, xgb=xgb, input_data=input_data)
 
-    return render_template("logreg.html", result=result, ebm=ebm, xgb=xgb, input_data=input_data)
+    return render_template("logreg2.html", result=result, ebm=ebm, xgb=xgb, input_data=input_data)
 
 
 @app.route("/ite", methods=["GET", "POST"])
@@ -191,10 +191,10 @@ def ite():
         # Call the ite_function from ite.py with the input_data
         Upperaf, Loweraf = ite_function(input_data)
         
-        return render_template("ite.html", Upperaf=Upperaf, Loweraf=Loweraf,
+        return render_template("ite2.html", Upperaf=Upperaf, Loweraf=Loweraf,
                                input_data=input_data)
     
-    return render_template("ite.html", Upperaf=Upperaf, Loweraf=Loweraf, 
+    return render_template("ite2.html", Upperaf=Upperaf, Loweraf=Loweraf, 
                            input_data=input_data)
 
 if __name__ == "__main__":
