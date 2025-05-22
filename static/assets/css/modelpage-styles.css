@@ -1,0 +1,156 @@
+form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px;
+            
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 45px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+            
+        }
+
+        .btn:hover {
+            background-color: #73adec;
+            color: #fff;
+        }
+        .variable {
+            flex: 1 0 calc(33% - 20px);
+            margin: 10px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #eeebeb;
+        }
+
+        .variable label {
+            display: block;
+            margin-bottom: 10px; /* Original: 10px, new: 15px */
+            font-weight: bold;
+            color: #444;
+            font-size: 1.1em; /* ADDED for prominence */
+        }
+
+        .variable input[type="radio"] {
+            margin-left: 10px;
+        }
+
+        input[type="submit"] {
+            display: block;
+            margin: 30px auto;
+            padding: 10px 30px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #73adec;
+            color: #fff;
+        }
+        .radio-wrapper {
+             margin-bottom: 20px;
+        }
+
+        .radio-button {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .radio-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .radio-button input[type="radio"] {
+            display: none;
+        }
+
+        .radio-checkmark {
+            display: inline-block;
+            position: relative;
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            border: 2px solid #007BFF; /* This will be overridden by custom-theme.css if #3A86FF is used there */
+            border-radius: 50%;
+        }
+
+        .radio-checkmark:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #007BFF; /* This will be overridden by custom-theme.css */
+            transition: all 0.2s ease-in-out;
+        }
+
+        .radio-button input[type="radio"]:checked ~ .radio-checkmark:before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .radio-label {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+/* Added from logreg2.html */
+.form-group {
+    margin-bottom: 1rem;
+    margin-right: 20px; /* Combined from logreg2.html specific .form-group rule */
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Styles for model input/output page UI improvements (Task: Improve UI of model input/output pages) */
+
+/* .variable label is already above, updated with font-size and margin-bottom */
+/* .variable label {
+    font-size: 1.1em; 
+    margin-bottom: 15px; 
+} */
+
+.result-display {
+    background-color: #f8f9fa; /* A light grey */
+    border: 1px solid #e9ecef; /* A light border */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    margin-top: 20px; /* Space above the result box */
+    margin-bottom: 30px;
+}
+
+/* Responsive design for variable input sections */
+@media (max-width: 992px) { 
+    .variable {
+        flex: 1 0 calc(50% - 20px); /* Two columns on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .variable {
+        flex: 1 0 100%; /* Full width on smaller screens */
+    }
+}

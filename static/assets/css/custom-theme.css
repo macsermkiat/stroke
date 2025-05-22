@@ -1,0 +1,115 @@
+/* static/assets/css/custom-theme.css */
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    /* Assuming the base theme (templatemo-chain-app-dev.css) handles base colors. */
+    /* We will override specific elements below. */
+}
+
+/* --- Color Scheme --- */
+/* Primary color: #3A86FF (deeper blue) */
+/* Secondary accent color: #ffc107 (yellow) */
+
+/* Example Overrides - more specific selectors might be needed depending on the base theme */
+
+/* Buttons */
+.btn, 
+input[type="submit"], 
+input[type="button"], 
+button { /* General button styling */
+    background-color: #3A86FF; /* New primary color */
+    color: #ffffff; /* White text for better contrast */
+    border-radius: 25px;
+    padding: 10px 20px; /* Adjusted padding for a modern look */
+    text-decoration: none;
+    border: none; /* Remove default borders */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover, 
+input[type="submit"]:hover, 
+input[type="button"]:hover, 
+button:hover {
+    background-color: #2d6fcf; /* Darker shade of primary for hover */
+    color: #ffffff;
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.btn:active, 
+input[type="submit"]:active, 
+input[type="button"]:active, 
+button:active {
+    background-color: #265ead; /* Even darker for active state */
+    transform: translateY(0);
+}
+
+/* Secondary button styling (example) */
+.btn-secondary {
+    background-color: #ffc107; /* Secondary accent color */
+    color: #212529; /* Dark text for yellow background */
+}
+
+.btn-secondary:hover {
+    background-color: #e0a800; /* Darker yellow */
+    color: #212529;
+}
+
+/* Links */
+a {
+    color: #3A86FF;
+}
+
+a:hover {
+    color: #2d6fcf;
+}
+
+/* Header - Assuming a class like .header-area or similar from the theme */
+/* This is a guess, actual class would need to be identified from template structure */
+.header-area .main-nav .nav li a.active,
+.header-area .main-nav .nav li:hover a {
+    color: #3A86FF; /* Primary color for active/hover nav links */
+}
+
+/* Card-like elements - this is a generic selector, 
+   you'll need to identify actual classes used for cards/containers in the theme 
+   e.g., .service-item, .pricing-item, .variable (from modelpage-styles.css) */
+.variable, 
+.service-item, /* from template_main theme */
+.pricing-item, /* from template_main theme */
+.contact-us-content, /* from template_main theme */
+.footer-widget /* from template_main theme */
+ { 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-radius: 8px; /* Consistent rounded corners for cards */
+}
+
+/* Specific override for .variable from modelpage-styles.css to use new button style */
+/* This demonstrates how to override if .btn was too generic */
+.variable input[type="submit"] {
+    /* Already covered by the general input[type="submit"] above, but shown for demonstration */
+    background-color: #3A86FF;
+    border-radius: 25px;
+}
+.variable input[type="submit"]:hover {
+    background-color: #2d6fcf;
+}
+
+/* Ensure the blue from modelpage-styles.css for radio buttons uses the new primary color */
+.radio-checkmark {
+    border: 2px solid #3A86FF;
+}
+
+.radio-checkmark:before {
+    background-color: #3A86FF;
+}
+
+/* Headings, if a global override is desired */
+h1, h2, h3, h4, h5, h6 {
+    /* font-weight: 500; /* Example: Slightly lighter headings */
+    /* color: #333; /* Darker text for headings */
+}
+
+/* Specific section heading adjustments if needed */
+.section-heading h4 {
+    /* color: #3A86FF; /* Example: Make some specific headings use primary color */
+}
