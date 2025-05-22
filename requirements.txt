@@ -8,6 +8,7 @@ scipy
 scikit-learn==1.0.1
 tensorflow==2.11
 xgboost
+nvidia-tensorrt
 
 --extra-index-url https://support.bayesfusion.com/pysmile-A/ 
 pysmile
