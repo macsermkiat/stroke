@@ -5,4 +5,6 @@ Demo MVP version is here
 ## Deployment
 To deploy on Vercel, copy the repository and deploy from the dashboard. The
 platform will discover the Flask application exposed from `api/index.py` and
-route every request there thanks to the bundled `vercel.json` configuration.
+route every request there thanks to the bundled `vercel.json` configuration,
+which pins the `vercel-python@0.6.0` runtime to Python 3.11 for compatibility
+with the app's dependencies.
