@@ -1,189 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/raphael@2.3.0/raphael.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/justgage@1.2.9/justgage.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+{% extends "base.html" %}
+{% block title %}Bayesian Network Stroke Explorer{% endblock %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/templatemo-chain-app-dev.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/animated.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/owl.css') }}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    
-
-    <title>Bayesian Network Probability Calculator</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/modelpage-styles.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/custom-theme.css') }}">
-</head>
-<body>
-    {% include 'header.html' %}
-
-    <br><br><br>
-
-    
-
-    <div id="services" class="services section">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8 offset-lg-2">
-              <div class="section-heading  wow fadeInDown" data-wow-duration="3.2s" data-wow-delay="0.5s">
-                <h1><em>BN Model</em></h1>
-                <div style="display: flex; justify-content: center;">
-                <hr style="width: 15%;">
-                </div>
-                <br>
-                <br>
-                <h4>Input <em>Variables</em></h4>
-                <!--<p>texttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttext</p>-->
-              </div>
-            </div>
-          </div>
-        </div>  
+{% block content %}
+<div x-data="modelPage({{ node_fullnames|tojson }})" class="space-y-10">
+    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
+            <p class="text-sm uppercase tracking-[0.35em] text-purple-300/80">Bayesian Network</p>
+            <h1 class="mt-2 text-3xl font-semibold text-white md:text-4xl">Interact with conditional dependencies across the network</h1>
+        </div>
+        <a href="/" class="inline-flex items-center gap-2 rounded-xl border border-slate-700/80 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:border-purple-400 hover:text-white">
+            <i class="ri-arrow-left-line text-lg"></i>Back to overview
+        </a>
     </div>
- <!------------------------------------------------------------------------------------------------------------------------------------------------>   
+
     {% if result %}
-    <div class="result-display"> <!-- WRAPPER ADDED -->
-        <div class="section-heading  wow fadeInLeft" data-wow-duration="1.4s" data-wow-delay="0.1s">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-6 align-self-center">
-                  <div class="section-heading">
-                    <h4>Result</h4>
-                    
-                    <p style="font-size: 20px;"><strong><em>{{ result }}</em></strong></p>
-                  </div>
-                </div>
-              </div>
+    <div class="glass-panel rounded-3xl border border-purple-500/40 px-8 py-6">
+        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+                <p class="text-sm font-semibold uppercase tracking-wide text-purple-200">Posterior probability</p>
+                <p class="text-2xl font-semibold text-white">{{ result }}</p>
             </div>
-        
-            <!--<h2>Result</h2>
-            <p>{{ result }}</p>-->
-            {% for node in nodes[-1:] %} <!-- BN model specific: nodes[-1:] might show only the last node -->
-                <div class="variable">
-                    <label for="{{ node }}">{{ node }}</label>
-                    {% for state in evidence_states[node] %}
-                        <div class="form-check">
-                          
-                          <div class="radio-wrapper">
-                            <label class="radio-button">
-                              <input id="option2" type="radio" name="{{ node }}" id="{{ node }}_{{ state }}" value="{{ evidence_states[node].index(state) }}">
-                              <span class="radio-checkmark"></span>
-                              <span class="radio-label">{{ state }}</span>
-                            </label>
-                          </div>
-
-                        
-                        
-                          </div>
-                          <div class="col-lg-12">
-                            <div class="progress">
-                              <div class="progress-bar" role="progressbar" 
-                                   style="width: {{ evidence_values[node][evidence_states[node].index(state)] * 100 }}%;" 
-                                   aria-valuenow="{{ evidence_values[node][evidence_states[node].index(state)] * 100 }}" 
-                                   aria-valuemin="0" aria-valuemax="100" 
-                                   id="{{ node }}_progress_value">
-                              </div>
-                            </div>{{ (evidence_values[node][evidence_states[node].index(state)] * 100)|round(2) }}%
-                          </div>
-                    {% endfor %}
-                    
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 text-center">
-                                <br>
-                                <a href="/BN" class="btn">Start over</a>
-                            </div>
-                        </div> 
-                    </div>          
-                </div>
-            {% endfor %}
-        </div> <!-- Closing section-heading wow fadeInLeft -->
-    </div> <!-- Closing result-display -->
+            <a href="/BN" class="inline-flex items-center gap-2 rounded-xl border border-purple-400/40 px-4 py-2 text-sm font-medium text-purple-200 transition hover:border-purple-300 hover:bg-purple-400/10">Reset inputs<i class="ri-refresh-line text-lg"></i></a>
+        </div>
+        <p class="mt-3 text-sm text-slate-300">Use the expandable cards below to specify evidence. Probability bars highlight how strongly each outcome is supported.</p>
+    </div>
     {% endif %}
-    
-<!------------------------------------------------------------------------------------------------------------------------------------------------>      
-    <!--<h1>Input Variables</h1>-->
-    <div class="section-heading  wow fadeInUp" data-wow-duration="1.4s" data-wow-delay="0.1s">
-    <form action="/BN" method="post">
-        {% for node in nodes %}
-            <div class="variable">
-                <label for="{{ node }}" style="display: flex; align-items: center; justify-content: center; font-size: 20px;">{{ node_fullnames[node] }}</label>
-                {% for state in evidence_states[node] %}
-                    <div class="form-check">
-                        <br>
-                        
-                        
-                        <div class="radio-wrapper">
-                            <label class="radio-button">
-                              <input id="option2" type="radio" name="{{ node }}" id="{{ node }}_{{ state }}" value="{{ evidence_states[node].index(state) }}">
-                              <span class="radio-checkmark"></span>
-                              <span class="radio-label">{{ state }}</span>
-                            </label>
-                          </div>
 
-
+    <form action="/BN" method="post" class="space-y-8">
+        <div class="glass-panel rounded-3xl border border-slate-800 px-6 py-6">
+            <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div class="flex-1">
+                    <label for="variable-search" class="text-sm font-semibold text-slate-300">Quick filter</label>
+                    <div class="relative mt-2">
+                        <i class="ri-search-line pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                        <input id="variable-search" x-model="query" type="text" placeholder="Search variables…" class="w-full rounded-2xl border border-slate-700/60 bg-slate-900/70 py-3 pl-11 pr-4 text-sm text-slate-200 placeholder:text-slate-500 focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400">
                     </div>
-                      <div class="col-lg-12">
-                        <div class="progress">
-                          <div class="progress-bar" role="progressbar" 
-                               style="width: {{ evidence_values[node][evidence_states[node].index(state)] * 100 }}%;" 
-                               aria-valuenow="{{ evidence_values[node][evidence_states[node].index(state)] * 100 }}" 
-                               aria-valuemin="0" aria-valuemax="100" 
-                               id="{{ node }}_progress_value">
-                          </div>
-                        </div>{{ (evidence_values[node][evidence_states[node].index(state)] * 100)|round(2) }}%
-                      </div>
-                {% endfor %}           
-            </div>
-        {% endfor %}
-        
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <br>
-                    <input class="btn" type="submit" value="Calculate">
-                    <a class="btn" href="/">Back</a>
                 </div>
-            </div> 
+                <div class="flex items-center gap-3">
+                    <button type="button" @click="query = ''" class="inline-flex items-center gap-2 rounded-xl border border-slate-700/60 px-4 py-2 text-sm font-medium text-slate-300 transition hover:border-purple-400 hover:text-white">
+                        <i class="ri-eraser-line text-lg"></i>
+                        Clear search
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            {% for node in nodes %}
+            {% set ns = namespace(max_prob=0, max_state='') %}
+            {% for state in evidence_states[node] %}
+                {% set idx = loop.index0 %}
+                {% if evidence_values[node][idx] > ns.max_prob %}
+                    {% set ns.max_prob = evidence_values[node][idx] %}
+                    {% set ns.max_state = state %}
+                {% endif %}
+            {% endfor %}
+            <div x-show="isVisible('{{ node }}')" x-cloak class="rounded-3xl border border-slate-800 bg-slate-950/60">
+                <div x-data="{ open: false }" class="divide-y divide-slate-800/80">
+                    <button type="button" @click="open = !open" class="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition hover:bg-slate-900/70">
+                        <div>
+                            <p class="text-sm font-medium uppercase tracking-wide text-slate-400">{{ node }}</p>
+                            <h2 class="mt-1 text-lg font-semibold text-white">{{ node_fullnames[node] }}</h2>
+                            <p class="mt-1 text-xs text-slate-400">Most likely outcome: <span class="text-slate-100">{{ ns.max_state }}</span> ({{ (ns.max_prob * 100)|round(1) }}%)</p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="hidden text-right text-sm text-slate-400 sm:block">
+                                <p>Options: {{ evidence_states[node]|length }}</p>
+                                <p>Tap to configure</p>
+                            </div>
+                            <span :class="open ? 'rotate-180 text-purple-300' : 'text-slate-500'" class="transition"><i class="ri-arrow-down-s-line text-2xl"></i></span>
+                        </div>
+                    </button>
+                    <div x-show="open" x-transition.opacity.duration.200ms class="space-y-4 px-6 py-6">
+                        {% for state in evidence_states[node] %}
+                        {% set idx = loop.index0 %}
+                        {% set percentage = (evidence_values[node][idx] * 100) %}
+                        <div class="rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4">
+                            <label class="flex items-center gap-4">
+                                <input type="radio" name="{{ node }}" value="{{ evidence_states[node].index(state) }}" class="peer hidden" {% if request.form.get(node, '')|int == evidence_states[node].index(state)|int %}checked{% endif %}>
+                                <span class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-700/70 bg-slate-950/70 text-sm font-semibold text-slate-300 transition peer-checked:border-purple-400 peer-checked:text-purple-300">
+                                    {{ loop.index }}
+                                </span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-semibold text-white">{{ state }}</p>
+                                    <div class="mt-2 h-2 rounded-full bg-slate-800">
+                                        <div class="h-full rounded-full bg-gradient-to-r from-purple-400 via-cyan-400 to-pink-400" style="width: {{ percentage }}%"></div>
+                                    </div>
+                                    <p class="mt-1 text-xs text-slate-400">Belief: {{ percentage|round(2) }}%</p>
+                                </div>
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="flex flex-wrap items-center justify-end gap-3 pt-4">
+            <a href="/" class="inline-flex items-center gap-2 rounded-xl border border-slate-700/70 px-5 py-2.5 text-sm font-medium text-slate-300 transition hover:border-purple-400 hover:text-white">
+                Cancel
+            </a>
+            <button type="submit" class="inline-flex items-center gap-2 rounded-xl bg-purple-500 px-6 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-purple-400">
+                <i class="ri-brain-line text-lg"></i>
+                Calculate probability
+            </button>
         </div>
     </form>
-    </div>
-<!------------------------------------------------------------------------------------------------------------------------------------------------>  
-    <footer id="newsletter">
-        <div class="container">
-    
-          <div class="row">
-            <div class="col-lg-8 offset-lg-2">
-              <div class="footer-widget">
-                <h4>Contact Us</h4>
-                <p>Department of Clinical Epidemiology and Biostatistics</p>
-                <p>- 3rd Floor, Research Center Building, Faculty of Medicine Ramathibodi Hospital, Mahidol University
-                  270 RAMA VI Road. Rachathevi, Bangkok 10400, Thailand.</p>
-                <p>- 4th Floor, Sukho Place Building, 218/11 Sukhothai Road., Suan Chitlada, Dusit, Bangkok 10300, Thailand.</p> 
-                <p>Tel. (+66)2-201-1269 Fax. (+66)2-201-1284</p>
-                <p>Website: <a href="http://www.ceb-rama.org">http://www.ceb-rama.org</a></p>
-              </div>
-            </div>
-           
-        </div>
-      </footer>
-    
-    
-      <!-- Scripts -->
-      <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
-      <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-      <script src="{{ url_for('static', filename='assets/js/owl-carousel.js') }}"></script>
-      <script src="{{ url_for('static', filename='assets/js/animation.js') }}"></script>
-      <script src="{{ url_for('static', filename='assets/js/imagesloaded.js') }}"></script>
-      <script src="{{ url_for('static', filename='assets/js/popup.js') }}"></script>
-      <script src="{{ url_for('static', filename='assets/js/custom.js') }}"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script> 
-</body>
-</html>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('modelPage', (names) => ({
+            query: '',
+            names,
+            isVisible(node) {
+                if (!this.query) { return true; }
+                const target = (this.names[node] || node || '').toLowerCase();
+                return target.includes(this.query.toLowerCase());
+            }
+        }));
+    });
+</script>
+{% endblock %}

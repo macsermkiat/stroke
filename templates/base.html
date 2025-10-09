@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CEB Stroke Models{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
+    {% block head %}{% endblock %}
+    <style>
+        :root {
+            color-scheme: dark;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at 10% 20%, rgba(22,78,99,0.35) 0%, rgba(15,23,42,1) 45%, rgba(2,6,23,1) 100%);
+            min-height: 100vh;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.72);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
+        }
+        .gradient-text {
+            background: linear-gradient(120deg, #38bdf8 0%, #a855f7 45%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="text-slate-100 antialiased">
+    <div class="pointer-events-none fixed inset-x-0 top-0 z-0 flex justify-center opacity-70">
+        <div class="h-64 w-64 rounded-full bg-cyan-500 blur-3xl"></div>
+    </div>
+    <div class="pointer-events-none fixed inset-y-0 right-0 z-0 flex items-center opacity-30">
+        <div class="h-96 w-96 rounded-full bg-purple-500 blur-3xl"></div>
+    </div>
+
+    <header class="fixed inset-x-0 top-0 z-40 border-b border-slate-800/70 bg-slate-950/60 backdrop-blur-xl">
+        <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+            <a href="/" class="flex items-center gap-3 text-lg font-semibold tracking-tight">
+                <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-500/20 text-cyan-300">
+                    <i class="ri-pulse-line text-2xl"></i>
+                </span>
+                <span class="text-slate-100">CEB Stroke Intelligence</span>
+            </a>
+            <div class="hidden items-center gap-6 text-sm font-medium text-slate-300 sm:flex">
+                <a href="/" class="transition hover:text-white">Home</a>
+                <a href="/TAN" class="transition hover:text-white">TAN</a>
+                <a href="/BN" class="transition hover:text-white">BN</a>
+                <a href="/logreg" class="transition hover:text-white">LogReg</a>
+                <a href="/ite" class="transition hover:text-white">ITE</a>
+            </div>
+            <div class="relative sm:hidden" x-data="{ open: false }">
+                <button @click="open = !open" class="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-700 text-slate-200 transition hover:border-cyan-500 hover:text-cyan-400">
+                    <i class="ri-menu-3-fill text-xl"></i>
+                </button>
+                <div x-show="open" x-transition x-cloak @click.away="open = false" class="absolute right-0 top-12 w-48 rounded-2xl border border-slate-800 bg-slate-900/95 p-3 text-sm font-medium text-slate-300 shadow-2xl">
+                    <a class="block rounded-xl px-4 py-2 transition hover:bg-slate-800 hover:text-white" href="/" @click="open = false">Home</a>
+                    <a class="block rounded-xl px-4 py-2 transition hover:bg-slate-800 hover:text-white" href="/TAN" @click="open = false">TAN</a>
+                    <a class="block rounded-xl px-4 py-2 transition hover:bg-slate-800 hover:text-white" href="/BN" @click="open = false">BN</a>
+                    <a class="block rounded-xl px-4 py-2 transition hover:bg-slate-800 hover:text-white" href="/logreg" @click="open = false">LogReg</a>
+                    <a class="block rounded-xl px-4 py-2 transition hover:bg-slate-800 hover:text-white" href="/ite" @click="open = false">ITE</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="relative z-10 mx-auto max-w-6xl px-6 pt-28 pb-24">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="relative z-10 border-t border-slate-800/80 bg-slate-950/70">
+        <div class="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-10 md:flex-row md:justify-between">
+            <div>
+                <p class="text-lg font-semibold text-white">Department of Clinical Epidemiology and Biostatistics</p>
+                <p class="mt-2 max-w-xl text-sm leading-relaxed text-slate-400">3rd Floor, Research Center Building, Faculty of Medicine Ramathibodi Hospital, Mahidol University, 270 RAMA VI Road, Rachathevi, Bangkok 10400, Thailand.</p>
+                <p class="mt-2 max-w-xl text-sm leading-relaxed text-slate-400">4th Floor, Sukho Place Building, 218/11 Sukhothai Road., Suan Chitlada, Dusit, Bangkok 10300, Thailand.</p>
+            </div>
+            <div class="space-y-2 text-sm text-slate-400">
+                <p>Tel. (+66)2-201-1269</p>
+                <p>Fax. (+66)2-201-1284</p>
+                <p>Website: <a class="text-cyan-400 transition hover:text-cyan-200" href="http://www.ceb-rama.org" target="_blank" rel="noopener">http://www.ceb-rama.org</a></p>
+            </div>
+        </div>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
