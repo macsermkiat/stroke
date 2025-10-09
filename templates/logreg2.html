@@ -13,6 +13,19 @@
         </a>
     </div>
 
+    {% if error_message %}
+    <div class="glass-panel rounded-3xl border border-amber-500/40 bg-amber-500/10 px-6 py-5 text-amber-100">
+        <div class="flex items-start gap-3">
+            <i class="ri-alert-line text-2xl"></i>
+            <div>
+                <p class="text-sm font-semibold uppercase tracking-wide">Risk modeling temporarily unavailable</p>
+                <p class="mt-1 text-sm text-amber-100/90">{{ error_message }}</p>
+                <p class="mt-3 text-xs text-amber-100/70">Install the listed Python packages and reload to access logistic regression, EBM, and XGBoost predictions.</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
     {% if result %}
     <div x-data="{ expanded: false }" class="glass-panel rounded-3xl border border-pink-500/40 px-8 py-6">
         <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">

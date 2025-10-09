@@ -13,6 +13,19 @@
         </a>
     </div>
 
+    {% if error_message %}
+    <div class="glass-panel rounded-3xl border border-amber-500/40 bg-amber-500/10 px-6 py-5 text-amber-100">
+        <div class="flex items-start gap-3">
+            <i class="ri-alert-line text-2xl"></i>
+            <div>
+                <p class="text-sm font-semibold uppercase tracking-wide">Inference temporarily unavailable</p>
+                <p class="mt-1 text-sm text-amber-100/90">{{ error_message }}</p>
+                <p class="mt-3 text-xs text-amber-100/70">Set the <code class="rounded bg-black/30 px-1.5 py-0.5">KEY</code> environment variable and install the PySMILE dependency to re-enable this explorer.</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
     {% if result %}
     <div class="glass-panel rounded-3xl border border-purple-500/40 px-8 py-6">
         <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
