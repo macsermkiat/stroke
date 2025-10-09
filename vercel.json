@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/index.py": {
-      "runtime": @vercel/python@5.0.9"
-    }
-  },
   "routes": [
     { "src": "/(.*)", "dest": "api/index.py" }
   ]
