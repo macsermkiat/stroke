@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: stroke
+    runtime: python
+    plan: starter            # or free; bump if the build OOMs on TensorFlow
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --workers 2 --timeout 120
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"       # must match runtime.txt
+      - key: SMILE_LICENSE
+        sync: false           # secret — set in dashboard, never committed
+      - key: SMILE_KEY
+        sync: false           # secret — set in dashboard, never committed
