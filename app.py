@@ -13,8 +13,8 @@ _ = load_dotenv(find_dotenv())
 # Initialize the PySmile license once, before any pysmile.Network() is created.
 # License values come from the environment (.env locally, secret env vars on deploy);
 # they are never committed to source. See smile_license/ and .env.example.
-_smile_license = os.environ["SMILE_LICENSE"]
-_smile_key = [int(b.strip(), 16) for b in os.environ["SMILE_KEY"].split(",")]
+_smile_license = os.environ["SMILE_LICENSE"].strip()
+_smile_key = [int(b.strip(), 16) for b in os.environ["SMILE_KEY"].split(",") if b.strip()]
 pysmile.License(_smile_license.encode("latin-1"), _smile_key)
 
 # Global variables for networks and cached static data
