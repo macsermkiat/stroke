@@ -1,13 +1,13 @@
-Flask
-Gunicorn
+Flask==3.0.3
+gunicorn==21.2.0
 interpret-core==0.2.4
 interpret==0.2.4
-matplotlib
-python-dotenv
-scipy
-scikit-learn==1.0.1
-tensorflow
-xgboost
+matplotlib==3.8.4
+python-dotenv==1.0.1
+scipy==1.11.4
+scikit-learn==1.3.2
+tensorflow==2.15.1
+xgboost==2.0.3
 
---extra-index-url https://support.bayesfusion.com/pysmile-A/ 
+--extra-index-url https://support.bayesfusion.com/pysmile-A/
 pysmile
