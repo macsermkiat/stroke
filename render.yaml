@@ -4,7 +4,7 @@ services:
     runtime: python
     plan: starter            # or free; bump if the build OOMs on TensorFlow
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app --workers 2 --timeout 120
+    startCommand: gunicorn app:app --workers 2 --timeout 120 --bind 0.0.0.0:$PORT
     envVars:
       - key: PYTHON_VERSION
         value: "3.11.9"       # must match runtime.txt
