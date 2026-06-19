@@ -7,32 +7,15 @@ from pysmile import SMILEException
 import os
 import sys
 
-class HexInt(int):
-    def __repr__(self):
-        return hex(self)
 from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv())
 
-KEY = os.environ.get('KEY') # Ensure KEY is loaded before pysmile.License
-key_list = [HexInt(int(item.strip(), 16)) for item in KEY.strip('[]').split(',')]
-
-# Initialize PySmile License globally and once.
-pysmile.License((
-	b"SMILE LICENSE e5ca1ad4 bbb82a84 a6e90038 "
-	b"THIS IS AN ACADEMIC LICENSE AND CAN BE USED "
-	b"SOLELY FOR ACADEMIC RESEARCH AND TEACHING, "
-	b"AS DEFINED IN THE BAYESFUSION ACADEMIC "
-	b"SOFTWARE LICENSING AGREEMENT. "
-	b"Serial #: dafatg2jml3x61km3b5oej22n "
-	b"Issued for: SERMKIAT LOLAK (sermkiat.lol@student.mahidol.edu) "
-	b"Academic institution: Faculty of Medicine, Ramathibodi hospital, Mahidol university "
-	b"Valid until: 2023-10-27 "
-	b"Issued by BayesFusion activation server"
-	),[
-	0x13,0x27,0x92,0xab,0xe4,0xb6,0x92,0xde,0xc9,0x92,0xb2,0xb5,0x0f,0xa1,0xc3,0x97,
-	0xdc,0xb8,0x80,0xc3,0x53,0xd3,0x77,0x6b,0x78,0x34,0xf4,0x43,0x37,0xe9,0x32,0x2f,
-	0xc1,0x1a,0x64,0x89,0xec,0x5e,0x82,0x10,0x31,0x23,0x39,0x87,0xe0,0x80,0x09,0xf1,
-	0x9f,0xb3,0x08,0x19,0xcd,0x2e,0x2b,0xfe,0x3d,0xfd,0xef,0x43,0x76,0x02,0x02,0xbc])
+# Initialize the PySmile license once, before any pysmile.Network() is created.
+# License values come from the environment (.env locally, secret env vars on deploy);
+# they are never committed to source. See smile_license/ and .env.example.
+_smile_license = os.environ["SMILE_LICENSE"]
+_smile_key = [int(b.strip(), 16) for b in os.environ["SMILE_KEY"].split(",")]
+pysmile.License(_smile_license.encode("latin-1"), _smile_key)
 
 # Global variables for networks and cached static data
 tan_net = pysmile.Network()
@@ -76,7 +59,6 @@ def get_dynamic_node_values(net):
     return evidence_values
 
 # Load networks and static data at startup
-@app.before_first_request
 def initial_load():
     global tan_net, bn_net, \
            tan_node_names, tan_node_fullnames, tan_evidence_states, \
@@ -97,6 +79,10 @@ def initial_load():
     bn_node_names.extend(names)
     bn_node_fullnames.update(fullnames)
     bn_evidence_states.update(states)
+
+
+# Load networks and static data once at import (Flask 3.x compatible startup)
+initial_load()
 
 
 @app.route("/", methods=["GET"])
